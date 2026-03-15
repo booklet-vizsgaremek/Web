@@ -1,20 +1,338 @@
 openapi: 3.0.1
 info:
-  title: HelloWorld API
+  title: BOOKLET API
   version: 1.0.0
 paths:
-  /hello:
+  /api/books:
     get:
-      operationId: hello.world
-      summary: Returns a greeting
+      tags:
+       - Books
+      summary: Könyvek listájának lekérése
+      description: |
+        Visszaadja az összes könyv adatát
+      operationId: books.index
       responses:
         '200':
-          description: A friendly greeting
+          description: Könyvek listája
           content:
             application/json:
               schema:
                 type: object
                 properties:
-                  message:
-                    type: string
-                    example: Hello, world!
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/BookResource'
+              example: {"data":[
+                {"id":1,
+                "name":"Crest 3D White",
+                "weight":"116 g",
+                "is_vegan":false,
+                "stock_quantity":50,
+                "price":4.99,
+                "brand":{
+                  "id":1,
+                  "name":"Crest",
+                  "website":"https://www.crest.com",
+                  "country_of_origin":"USA"}
+                }
+                ,
+                {"id":1,
+                "name":"Crest 3D White",
+                "weight":"116 g",
+                "is_vegan":false,
+                "stock_quantity":50,
+                "price":4.99,
+                "brand":{
+                  "id":1,
+                  "name":"Crest",
+                  "website":"https://www.crest.com",
+                  "country_of_origin":"USA"}
+                }
+                
+                ]
+                }
+    post:
+      tags:
+       - Books
+      summary: Új könyv létrehozása
+      description: |
+        Hozzon létre egy új könyv rekordot a kapott JSON alapján.
+        Sikeres mentés után adja vissza a létrehozott rekordot a minta szerint.
+      operationId: books.store
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BookRequest'
+            example: {"brand_id": 1, "name":"Crest Pro-Health","weight":90,"unit":"g","is_vegan":false,"stock_quantity":24,"price":3.49}
+      responses:
+        '201':
+          description: Fogkrém létrehozva
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/ToothpasteResource'
+              example: {"data":[
+                {"id":1,
+                "name":"Crest 3D White",
+                "weight":"116 g",
+                "is_vegan":false,
+                "stock_quantity":50,
+                "price":4.99,
+                "brand":{
+                  "id":1,
+                  "name":"Crest",
+                  "website":"https://www.crest.com",
+                  "country_of_origin":"USA"}
+                }
+                ,
+                {"id":1,
+                "name":"Crest 3D White",
+                "weight":"116 g",
+                "is_vegan":false,
+                "stock_quantity":50,
+                "price":4.99,
+                "brand":{
+                  "id":1,
+                  "name":"Crest",
+                  "website":"https://www.crest.com",
+                  "country_of_origin":"USA"}
+                }
+                
+                ]
+                }
+        '422':
+          description: Hibás adatok
+        '500':
+          description: Szerver hiba
+  /api/toothpastes/{toothpaste}:
+    get:
+      tags:
+       - Toothpastes
+      summary: Egy adott fogkrém lekérése
+      description: |
+        A fogkrém azonosítója alapján keresse meg a megfelelő rekordot, és adja vissza az adatokat a minta szerint
+      operationId: toothpastes.show
+      parameters:
+        - name: toothpaste
+          in: path
+          required: true
+          schema:
+            type: integer
+          example: 4
+      responses:
+        '200':
+          description: Egy adott fogkrém
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/ToothpasteResource'
+              example:  {"data":{"id":4,"name":"Colgate Optic White","weight":"85 g","is_vegan":true,"stock_quantity":60,"price":4.49,"brand":{"id":2,"name":"Colgate","website":"https:\/\/www.colgate.com","country_of_origin":"USA"}}}
+    put:
+      tags:
+       - Toothpastes
+      summary: Egy adott fogkrém frissítése
+      description: |
+
+        A feladata, hogy a JSON-ként kapott adatokat validálja,
+        majd tejes egészében cserélje le az adatbázisban található adatokat.
+        
+        A módosított rekordot adja is vissza a minta szerint!
+      operationId: toothpastes.update
+      parameters:
+        - name: toothpaste
+          in: path
+          required: true
+          schema:
+            type: integer
+          example: 3
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ToothpasteRequest'
+            example: {"brand_id":1,"name":"Crest Pro-Health","weight":170,"unit":"g","is_vegan":false,"stock_quantity":30,"price":5.49}
+      responses:
+        '200':
+          description: Fogkrém frissítve
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/ToothpasteResource'
+              example:  {"data":{"id":3,"name":"Crest Pro-Health","weight":"170 g","is_vegan":false,"stock_quantity":30,"price":5.49,"brand":{"id":1,"name":"Crest","website":"https://www.crest.com","country_of_origin":"USA"}}}
+    delete:
+      tags:
+       - Toothpastes
+      summary: Egy adott fogkrém törlése
+      description: |
+        Törölje ki a megfelelő rekordot az adatbázisból a kapott azonosító alapján.
+      operationId: toothpastes.destroy
+      parameters:
+        - name: toothpaste
+          in: path
+          required: true
+          schema:
+            type: integer
+          example: 2
+      responses:
+        '204':
+          description: Elem törölve
+        '404':
+          description: Nem található a keresett elem
+        '500':
+          description: Szerver hiba
+  /api/brands:
+    get:
+      tags:
+       - Brands
+      summary: Márkák listájának lekérése
+      description: |
+        Visszaadja az összes márka adatát a minta szerint
+      operationId: brands.index
+      responses:
+        '200':
+          description: Márkák listája
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/BrandResource'
+              example: {"data":[{"id":1,"name":"Crest","website":"https://www.crest.com","country_of_origin":"USA","toothpastes":[{"id":1,"name":"Crest 3D White","weight":"116 g","is_vegan":false,"stock_quantity":50,"price":4.99},{"id":2,"name":"Crest Pro-Health","weight":"170 g","is_vegan":false,"stock_quantity":30,"price":5.49},{"id":3,"name":"Crest Pro-Health","weight":"170 g","is_vegan":false,"stock_quantity":30,"price":5.49}]},{"id":2,"name":"Colgate","website":"https://www.colgate.com","country_of_origin":"USA","toothpastes":[{"id":4,"name":"Colgate Optic White","weight":"85 g","is_vegan":true,"stock_quantity":60,"price":4.49}]}]}
+    post:
+      tags:
+       - Brands
+      summary: Új márka létrehozása
+      description: |
+        Hozzon létre egy új márka rekordot a kapott JSON alapján.
+        Sikeres mentés után adja vissza a létrehozott rekordot a minta szerint.
+      operationId: brands.store
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BrandRequest'
+            example: {"name":"Signal","website":"https://www.signaltoothpaste.com","country_of_origin":"France"}
+      responses:
+        '201':
+          description: Márka létrehozva
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/BrandResource'
+              example: {"data":{"id":6,"name":"Signal","website":"https://www.signaltoothpaste.com","country_of_origin":"France","toothpastes":[]}}
+        '422':
+          description: Hibás adatok
+        '500':
+          description: Szerver hiba
+
+  /api/brands/{brand}:
+    get:
+      tags:
+       - Brands
+      summary: Egy adott márka lekérése
+      description: |
+        A márka azonosítója alapján keresse meg a megfelelő rekordot, és adja vissza az adatokat a minta szerint
+      operationId: brands.show
+      parameters:
+        - name: brand
+          in: path
+          required: true
+          schema:
+            type: integer
+          example: 5
+      responses:
+        '200':
+          description: Egy adott márka
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/BrandResource'
+              example: {"data":{"id":5,"name":"Tom's of Maine","website":"https://www.tomsofmaine.com","country_of_origin":"USA","toothpastes":[{"id":9,"name":"Tom's of Maine Luminous White","weight":"113 g","is_vegan":false,"stock_quantity":45,"price":5.29},{"id":10,"name":"Tom's of Maine Simply White","weight":"119 g","is_vegan":false,"stock_quantity":50,"price":5.79}]}}
+    put:
+      tags:
+       - Brands
+      summary: Egy adott márka frissítése
+      description: |
+        A JSON-ként kapott adatokat validálja,
+        majd tejes egészében cserélje le az adatbázisban található adatokat.
+        A módosított rekordot adja is vissza a minta szerint!
+      operationId: brands.update
+      parameters:
+        - name: brand
+          in: path
+          required: true
+          schema:
+            type: integer
+          example: 2
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BrandRequest'
+            example: {"name":"Colgate","website":"https://www.colgate.hu","country_of_origin":"USA"}
+      responses:
+        '200':
+          description: Márka frissítve
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/BrandResource'
+              example: {"data":{"id":2,"name":"Colgate","website":"https://www.colgate.hu","country_of_origin":"USA","toothpastes":[{"id":3,"name":"Colgate Total","weight":"200 g","is_vegan":true,"stock_quantity":40,"price":3.99},{"id":4,"name":"Colgate Optic White","weight":"85 g","is_vegan":true,"stock_quantity":60,"price":4.49}]}}
+        '404':
+          description: Nem található a keresett elem
+        '422':
+          description: Hibás adatok
+        '500':
+          description: Szerver hiba
+
+   
+
+    delete:
+      tags:
+       - Brands
+      summary: Egy adott márka törlése
+      description: |
+        Törölje ki a megfelelő rekordot az adatbázisból a kapott azonosító alapján.
+      operationId: brands.destroy
+      parameters:
+        - name: brand
+          in: path
+          required: true
+          schema:
+            type: integer
+          example: 1
+      responses:
+        '204':
+          description: Elem törölve
+        '404':
+          description: Nem található a keresett elem
+        '500':
+          description: Szerver hiba
+
