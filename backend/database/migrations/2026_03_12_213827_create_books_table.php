@@ -12,7 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('books', function (Blueprint $table) {
-             $table->uuid('id')->primary();
+            $table->id()->primary();
+            $table->uuid('uuid');
             $table->string('img', 300);
             $table->string('name', 255);
             $table->integer('author'); // ez majd foreignId lesz

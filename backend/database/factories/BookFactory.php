@@ -17,7 +17,7 @@ class BookFactory extends Factory
     public function definition(): array
     {
         return [
-             "id" => fake()->uuid(),
+             "uuid" => fake()->uuid(),
             "img" => "./img/" . fake()->word() . ".img",
             "name" => fake()->firstName() . " " . fake()->lastName(),
             "author" => fake()->numberBetween(0, 10), // majd kell itt változtatni

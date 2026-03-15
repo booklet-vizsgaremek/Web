@@ -13,9 +13,18 @@ return new class extends Migration
     {
         Schema::create('purchased', function (Blueprint $table) {
             
-            $table->foreignUuid("user_id")->constrained();
-            $table->foreignUuid('book_id')->constrained();
+            $table->foreignId("user_id")->constrained();
+            $table->foreignId('book_id')->constrained();
             $table->primary(['user_id', 'book_id']);
+
+
+            
+            
+
+
+
+
+
         });
     }
 
