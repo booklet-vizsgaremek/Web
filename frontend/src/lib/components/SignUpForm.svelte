@@ -9,6 +9,8 @@
 	import { zod4Client } from 'sveltekit-superforms/adapters';
 	import LocaleSwitcher from './LocaleSwitcher.svelte';
 	import FormLogo from './FormLogo.svelte';
+	import clsx from 'clsx';
+	import { twMerge } from 'tailwind-merge';
 
 	let { data }: { data: { form: SuperValidated<Infer<SignUpSchema>> } } = $props();
 
@@ -26,7 +28,7 @@
 	class="absolute top-1/2 left-1/2 flex h-full w-full -translate-1/2 flex-col items-center justify-center gap-4 bg-white p-12 *:w-full md:h-max md:w-1/4 md:justify-baseline dark:bg-neutral-950"
 >
 	<FormLogo />
-	<div class={`flex ${getLocale() == 'hu' ? 'flex-row-reverse' : 'flex-row'} gap-4`}>
+	<div class={twMerge(clsx('flex gap-4', getLocale() === 'hu' ? 'flex-row-reverse' : 'flex-row'))}>
 		<Form.Field {form} name="first_name">
 			<Form.Control>
 				{#snippet children({ props })}

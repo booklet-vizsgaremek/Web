@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { getLocale } from '$lib/paraglide/runtime.js';
 	import * as m from '$lib/paraglide/messages.js';
 	import { page } from '$app/state';
 	import { onMount } from 'svelte';
@@ -7,6 +6,7 @@
 	import { twMerge } from 'tailwind-merge';
 	import { fly } from 'svelte/transition';
 	import LocaleSwitcher from './LocaleSwitcher.svelte';
+	import HeaderLogo from './HeaderLogo.svelte';
 
 	let navOpen = $state(false);
 
@@ -22,22 +22,6 @@
 	onMount(() => {
 		isTouchScreen = window.matchMedia('(pointer: coarse)').matches;
 	});
-
-	let darkMode = $state(false);
-
-	$effect(() => {
-		const mq = window.matchMedia('(prefers-color-scheme: dark)');
-		darkMode = mq.matches;
-		const handler = (e: MediaQueryListEvent) => (darkMode = e.matches);
-		mq.addEventListener('change', handler);
-		return () => mq.removeEventListener('change', handler);
-	});
-
-	let logoPromise = $derived(
-		import(
-			`$lib/assets/logos/${isMobile ? 'logo_minimal' : `logo_${getLocale()}`}_${darkMode ? 'white' : 'black'}.svg?url`
-		)
-	);
 
 	const links = [
 		{
@@ -93,11 +77,7 @@
 		class="flex h-20 w-full flex-row items-center justify-between bg-white px-12 text-black md:px-24 dark:bg-neutral-950 dark:text-white"
 	>
 		<a href="/">
-			{#await logoPromise}
-				<div class="aspect-square h-8/12 animate-pulse bg-background md:aspect-auto md:w-36"></div>
-			{:then logo}
-				<img id="logo" alt="Logo" src={logo.default} />
-			{/await}
+			<HeaderLogo {isMobile} />
 		</a>
 
 		<button
