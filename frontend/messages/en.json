@@ -8,7 +8,10 @@
 		"sign_in": "Sign in",
 		"sign_up": "Sign up",
 		"email": "Email address",
-		"password": "Password"
+		"first_name": "First name",
+		"last_name": "Last name",
+		"password": "Password",
+		"password_confirm": "Password confirmation"
 	},
 	"title": {
 		"home": "Welcome!"
@@ -18,7 +21,8 @@
 		"zod_string_too_short": "Must be at least {min} characters",
 		"zod_string_too_long": "Must be at most {max} characters",
 		"zod_invalid_email": "Invalid email address",
-		"zod_invalid_type": "Invalid value"
+		"zod_invalid_type": "Invalid value",
+		"zod_passwords_not_matching": "The password fields must match"
 	},
 	"navigation": {
 		"go_back": "Go back"

@@ -8,7 +8,10 @@
 		"sign_in": "Bejelentkezés",
 		"sign_up": "Regisztráció",
 		"email": "Email cím",
-		"password": "Jelszó"
+		"first_name": "Keresztnév",
+		"last_name": "Vezetéknév",
+		"password": "Jelszó",
+		"password_confirm": "Jelszó megerősítés"
 	},
 	"title": {
 		"home": "Üdvözöljük!"
@@ -18,7 +21,8 @@
 		"zod_string_too_short": "Legalább {min} karakter hosszúnak kell lennie",
 		"zod_string_too_long": "Legfeljebb {max} karakter hosszúnak kell lennie",
 		"zod_invalid_email": "Érvénytelen email cím",
-		"zod_invalid_type": "Érvénytelen érték"
+		"zod_invalid_type": "Érvénytelen érték",
+		"zod_passwords_not_matching": "A két jelszónak meg kell egyeznie"
 	},
 	"navigation": {
 		"go_back": "Vissza"

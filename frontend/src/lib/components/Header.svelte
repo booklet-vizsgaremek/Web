@@ -6,6 +6,7 @@
 	import clsx from 'clsx';
 	import { twMerge } from 'tailwind-merge';
 	import { fly } from 'svelte/transition';
+	import LocaleSwitcher from './LocaleSwitcher.svelte';
 
 	let navOpen = $state(false);
 
@@ -115,16 +116,7 @@
 				<a href={link.url} class={linkClass(link.isSpecial)}>{link.title}</a>
 			{/each}
 
-			{#key getLocale()}
-				<select
-					onchange={(e) => setLocale(e.currentTarget.value as (typeof locales)[number])}
-					class="border-0 bg-transparent md:h-full md:px-8"
-				>
-					{#each locales as locale}
-						<option selected={locale === getLocale()}>{locale.toUpperCase()}</option>
-					{/each}
-				</select>
-			{/key}
+			<LocaleSwitcher classes="border-0 bg-transparent md:h-full md:px-8" />
 		</nav>
 	</header>
 {/if}
