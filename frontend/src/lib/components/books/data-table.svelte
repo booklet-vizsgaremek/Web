@@ -27,7 +27,7 @@
 	import { getColumns } from './columns.ts';
 	import { onMount } from 'svelte';
 	import { getLocale } from '$lib/paraglide/runtime.js';
-	import { Search } from '@lucide/svelte';
+	import { Plus, Search } from '@lucide/svelte';
 	import ComboSelect from '../ComboSelect.svelte';
 	import { toast } from 'svelte-sonner';
 
@@ -292,34 +292,45 @@
 			</Accordion.Item>
 		</Accordion.Root>
 		<Separator class="w-full md:hidden" orientation="horizontal" />
-		<div class="flex flex-row items-end justify-between">
+		<div class="flex flex-col items-end justify-between gap-8 md:flex-row">
 			<div class="mt-4 flex w-full flex-col gap-2 md:w-auto md:flex-row">
-				<Button onclick={applyFilters}>
+				<Button onclick={applyFilters} class="cursor-pointer">
 					{m['book_lookup.apply_filters']()}
 				</Button>
-				<Button variant="ghost" onclick={clearFilters}>
+				<Button variant="ghost" onclick={clearFilters} class="cursor-pointer">
 					{m['book_lookup.clear_filters']()}
 				</Button>
 			</div>
-			<DropdownMenu.Root>
-				<DropdownMenu.Trigger>
-					{#snippet child({ props }: { props: Record<string, unknown> })}
-						<Button {...props} variant="outline" class="hidden md:ms-auto md:flex">
-							{m['book_lookup.columns']()}
-							<ChevronDownIcon class="ms-2 size-4" />
-						</Button>
-					{/snippet}
-				</DropdownMenu.Trigger>
-				<DropdownMenu.Content align="end">
-					{#each table.getAllColumns().filter((col) => col.getCanHide()) as column (column.id)}
-						<DropdownMenu.CheckboxItem
-							bind:checked={() => column.getIsVisible(), (v) => column.toggleVisibility(!!v)}
-						>
-							{getColumnLabel(column.id)}
-						</DropdownMenu.CheckboxItem>
-					{/each}
-				</DropdownMenu.Content>
-			</DropdownMenu.Root>
+			<div class="flex w-full flex-col gap-2 md:w-auto md:flex-row">
+				<DropdownMenu.Root>
+					<DropdownMenu.Trigger>
+						{#snippet child({ props }: { props: Record<string, unknown> })}
+							<Button {...props} variant="outline" class="hidden cursor-pointer md:ms-auto md:flex">
+								{m['book_lookup.columns']()}
+								<ChevronDownIcon class="ms-2 size-4" />
+							</Button>
+						{/snippet}
+					</DropdownMenu.Trigger>
+					<DropdownMenu.Content align="end">
+						{#each table.getAllColumns().filter((col) => col.getCanHide()) as column (column.id)}
+							<DropdownMenu.CheckboxItem
+								bind:checked={() => column.getIsVisible(), (v) => column.toggleVisibility(!!v)}
+							>
+								{getColumnLabel(column.id)}
+							</DropdownMenu.CheckboxItem>
+						{/each}
+					</DropdownMenu.Content>
+				</DropdownMenu.Root>
+				{#if page.data.user && ['admin', 'manager'].includes(page.data.user.role)}
+					<Button
+						onclick={() => goto('/books/new')}
+						class="flex w-full cursor-pointer items-center gap-2 md:w-max"
+					>
+						<Plus />
+						{m['book_lookup.action.new']()}
+					</Button>
+				{/if}
+			</div>
 		</div>
 	</div>
 	<div class="flex flex-col gap-3 md:hidden">
