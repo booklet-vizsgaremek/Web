@@ -4,7 +4,7 @@
 	import { getLocale } from '$lib/paraglide/runtime';
 	import * as m from '$lib/paraglide/messages.js';
 	import * as Empty from '$lib/components/ui/empty';
-	import { ChevronRight, Pen } from '@lucide/svelte';
+	import { ChevronRight, Pen, Pencil } from '@lucide/svelte';
 	import Button from '$lib/components/ui/button/button.svelte';
 	import BookItem from '$lib/components/BookItem.svelte';
 	import { goto } from '$app/navigation';
@@ -13,8 +13,24 @@
 </script>
 
 <div class="mx-auto w-full px-4 pt-16! pb-12 md:w-4/5 md:px-0 md:pb-24">
-	<h1 class="mb-4 text-3xl">{data.author.name}</h1>
-	<p>{data.author[`biography_${getLocale()}`]}</p>
+	<div class="flex flex-col items-center justify-between gap-4 md:flex-row">
+		<div>
+			<h1 class="mb-4 text-3xl">{data.author.name}</h1>
+			<p>{data.author[`biography_${getLocale()}`]}</p>
+		</div>
+		{#if ['manager', 'admin'].includes(page.data.user?.role)}
+			<Button
+				variant="outline"
+				class="w-full cursor-pointer md:w-max"
+				onclick={() => {
+					goto(`/authors/${data.author.id}/edit`);
+				}}
+			>
+				<Pencil size={16} />
+				{m['admin.author.action.edit']()}
+			</Button>
+		{/if}
+	</div>
 	<div class="mt-8">
 		{#if data.author.books.length === 0}
 			<Empty.Root class="w-full border">
