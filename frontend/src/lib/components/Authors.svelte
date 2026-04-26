@@ -19,10 +19,12 @@
 		(() => {
 			if (truncate && authors.length > 1) {
 				return `${authors[0].name} +${authors.length - 1}`;
-			} else {
+			} else if (authors.length) {
 				return new Intl.ListFormat(getLocale(), { style: 'long', type: 'conjunction' }).format(
 					authors.map((x) => x.name)
 				);
+			} else {
+				return m['book_lookup.no_authors']();
 			}
 		})()
 	);
@@ -42,10 +44,10 @@
 	</Button>
 {:else if isDesktop.current}
 	<Popover.Root bind:open={openPopover}>
-		<Popover.Trigger>
+		<Popover.Trigger disabled={authors.length === 0}>
 			<Button
 				variant="link"
-				class={`h-auto w-auto cursor-pointer p-0 text-start whitespace-normal text-muted-foreground hover:text-foreground hover:no-underline ${classes}`}
+				class={`h-auto w-auto cursor-pointer p-0 text-start whitespace-normal text-muted-foreground ${authors.length ? 'hover:text-foreground hover:no-underline' : 'pointer-events-none'} ${classes}`}
 			>
 				{authorList}
 			</Button>
