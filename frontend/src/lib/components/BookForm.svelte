@@ -287,6 +287,8 @@
 					>
 						{#if $submitting}
 							<Spinner />
+						{:else if page.url.pathname.startsWith('/books/new')}
+							{m['actions.create']()}
 						{:else}
 							{m['actions.save']()}
 						{/if}
