@@ -1,6 +1,5 @@
 <script lang="ts">
 	import PencilIcon from '@lucide/svelte/icons/pencil';
-	import Trash2Icon from '@lucide/svelte/icons/trash-2';
 	import { Button } from '$lib/components/ui/button/index.js';
 	import * as AlertDialog from '$lib/components/ui/alert-dialog/index.js';
 	import * as Select from '$lib/components/ui/select/index.js';
@@ -9,6 +8,7 @@
 	import { getLocale } from '$lib/paraglide/runtime';
 	import Spinner from '$lib/components/ui/spinner/spinner.svelte';
 	import { beforeNavigate } from '$app/navigation';
+	import { Trash } from '@lucide/svelte';
 
 	let {
 		user,
@@ -125,7 +125,7 @@
 					class="size-8 cursor-pointer text-muted-foreground hover:text-destructive"
 					aria-label={m['admin.user_table.action.delete']()}
 				>
-					<Trash2Icon class="size-4" />
+					<Trash class="size-4" />
 				</Button>
 			{/snippet}
 		</AlertDialog.Trigger>
