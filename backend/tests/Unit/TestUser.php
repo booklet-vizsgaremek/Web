@@ -160,6 +160,6 @@ class TestUser extends TestCase
         ]);
 
 
-
+    }
 
 }
