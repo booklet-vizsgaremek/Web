@@ -40,7 +40,9 @@
 		"wishlist": "Wishlist",
 		"users": "Users",
 		"dashboard": "Dashboard",
-		"new_book": "New book"
+		"new_book": "New book",
+		"authors": "Authors",
+		"new_author": "New author"
 	},
 	"orders": {
 		"empty": "There aren't any orders yet with the currently selected status",
@@ -51,7 +53,7 @@
 		"cancel": "Cancel",
 		"cancel_order_dialog": {
 			"title": "Cancel order",
-			"description": "Are you sure you want to cancel this order?"
+			"description": "Are you sure you want to cancel this order? This action cannot be undone."
 		},
 		"status": {
 			"pending": "Pending",
@@ -103,7 +105,9 @@
 		"order_by_pr_asc": "By price (Cheaper first)",
 		"order_by_pr_desc": "By price (Expensive first)",
 		"actions": "Actions",
+		"no_authors": "No authors",
 		"action": {
+			"new": "Add new book",
 			"edit": "Edit book details",
 			"delete": "Delete book",
 			"delete_description": "Are you sure you want to delete \"{title}\"? This action cannot be undone.",
@@ -152,6 +156,7 @@
 			"description": "Are you sure you want to remove this item from your wishlist? \"{title}\""
 		},
 		"cancel": "Cancel",
+		"create": "Create",
 		"remove": "Remove"
 	},
 	"messages": {
@@ -175,6 +180,9 @@
 		"successful_password_change": "Password changed successfully",
 		"successful_user_data_change": "User data changed successfully",
 		"successful_book_save": "Book details saved successfully",
+		"successful_author_save": "Author details saved successfully",
+		"successful_genre_save": "Genre details saved successfully",
+		"successful_publisher_save": "Publisher details saved successfully",
 		"signin_for_action": "Please sign in to perform this action"
 	},
 	"admin": {
@@ -215,7 +223,7 @@
 				"change_role": "Change role",
 				"delete": "Delete user",
 				"change_role_description": "Select a new role for {name}",
-				"delete_description": "Are you sure you want to delete {name}? This action cannot be undone.",
+				"delete_description": "Are you sure you want to delete this user: {name}? This action cannot be undone.",
 				"confirm": "Confirm",
 				"cancel": "Cancel",
 				"new_role": "New role",
@@ -228,6 +236,22 @@
 			"select_authors": "Select author(s)",
 			"select_genre": "Select genre",
 			"selected": "{amount} selected"
+		},
+		"author": {
+			"name": "Name",
+			"biography_hu": "Biography in Hungarian",
+			"biography_en": "Biography in English",
+			"action": {
+				"delete": "Delete author",
+				"new": "New author",
+				"delete_author_success": "Author deleted successfully",
+				"search": "Search for an author",
+				"edit": "Edit author's details"
+			},
+			"delete_dialog": {
+				"has_books": "The author currently has books tied to their name. Books tied only to their name will get marked authorless.",
+				"description": "Are you sure you want to delete this author: {name}? This action cannot be undone."
+			}
 		}
 	},
 	"cart": {

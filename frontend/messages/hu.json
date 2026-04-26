@@ -40,7 +40,9 @@
 		"wishlist": "Kívánságlista",
 		"users": "Felhasználók",
 		"dashboard": "Vezérlőpult",
-		"new_book": "Új könyv"
+		"new_book": "Új könyv",
+		"authors": "Szerzők",
+		"new_author": "Új szerző"
 	},
 	"orders": {
 		"empty": "Még nincsen rendelés ezzel a státusszal",
@@ -51,7 +53,7 @@
 		"cancel": "Lemondom",
 		"cancel_order_dialog": {
 			"title": "Rendelés lemondása",
-			"description": "Biztos benne, hogy le szeretné mondani ezt a rendelést?"
+			"description": "Biztos benne, hogy le szeretné mondani ezt a rendelést? Ez a művelet nem vonható vissza."
 		},
 		"status": {
 			"pending": "Feldolgozás alatt",
@@ -103,7 +105,9 @@
 		"order_by_pr_asc": "Ár alapján (Olcsók elöl)",
 		"order_by_pr_desc": "Ár alapján (Drágák elöl)",
 		"actions": "Műveletek",
+		"no_authors": "Nincs szerző",
 		"action": {
+			"new": "Új könyv",
 			"edit": "Könyv adatainak módosítása",
 			"delete": "Könyv törlése",
 			"delete_description": "Biztosan törölni szeretné ezt a könyvet: \"{title}\"? Ez a művelet nem vonható vissza.",
@@ -154,6 +158,7 @@
 			"description": "Biztos benne, hogy el szeretné távolítani ezt az elemet a kívánságlistáról? \"{title}\""
 		},
 		"cancel": "Mégsem",
+		"create": "Létrehozás",
 		"remove": "Eltávolítás"
 	},
 	"messages": {
@@ -177,6 +182,9 @@
 		"successful_password_change": "Sikeres jelszóváltoztatás",
 		"successful_user_data_change": "Sikeres felhasználói adatváltoztatás",
 		"successful_book_save": "A könyv adatai sikeresen mentve",
+		"successful_author_save": "A szerző adatai sikeresen mentve",
+		"successful_genre_save": "A műfaj adatai sikeresen mentve",
+		"successful_publisher_save": "A kiadó adatai sikeresen mentve",
 		"signin_for_action": "Kérjük, jelentkezzen be a művelet végrehajtásához"
 	},
 	"admin": {
@@ -208,7 +216,7 @@
 				"change_role": "Szerepkör módosítása",
 				"delete": "Felhasználó törlése",
 				"change_role_description": "{name} új szerepkörének kiválasztása",
-				"delete_description": "Biztosan törölni szeretné {name} felhasználót? Ez a művelet nem vonható vissza.",
+				"delete_description": "Biztos benne, hogy törölni szeretné {name} felhasználót? Ez a művelet nem vonható vissza.",
 				"confirm": "Megerősítés",
 				"cancel": "Mégse",
 				"new_role": "Új szerepkör",
@@ -221,6 +229,22 @@
 			"select_authors": "Válasszon szerző(ke)t",
 			"select_genre": "Válasszon műfajt",
 			"selected": "{amount} kiválasztva"
+		},
+		"author": {
+			"name": "Név",
+			"biography_hu": "Biográfia Magyarul",
+			"biography_en": "Biográfia Angolul",
+			"action": {
+				"delete": "Szerző törlése",
+				"new": "Új szerző",
+				"delete_author_success": "Szerző sikeresen törölve",
+				"search": "Szerző keresése",
+				"edit": "Szerző adatainak szerkesztése"
+			},
+			"delete_dialog": {
+				"has_books": "A szerző nevéhez jelenleg művek kötődnek. A könyvek, melyek csak ennek a szerzőnek a nevéhez kötődnek, szerző nélkülivé válnak.",
+				"description": "Biztos benne, hogy törölni szeretné {name} szerzőt? Ez a művelet nem vonható vissza."
+			}
 		}
 	},
 	"cart": {
