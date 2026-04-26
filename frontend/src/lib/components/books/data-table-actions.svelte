@@ -1,12 +1,11 @@
 <script lang="ts">
-	import Trash2Icon from '@lucide/svelte/icons/trash-2';
 	import { Button } from '$lib/components/ui/button/index.js';
 	import * as AlertDialog from '$lib/components/ui/alert-dialog/index.js';
 	import * as m from '$lib/paraglide/messages.js';
 	import type { Book } from '$lib/types';
 	import Spinner from '$lib/components/ui/spinner/spinner.svelte';
 	import { beforeNavigate, goto } from '$app/navigation';
-	import { Pen } from '@lucide/svelte';
+	import { Pen, Trash } from '@lucide/svelte';
 	import { MediaQuery } from 'svelte/reactivity';
 
 	let {
@@ -29,6 +28,15 @@
 </script>
 
 <div class="flex w-full items-center gap-2 md:w-auto">
+	<Button
+		variant={isDesktop ? 'ghost' : 'outline'}
+		size="icon"
+		class="w-1/2 cursor-pointer text-muted-foreground md:size-8"
+		aria-label={m['book_lookup.action.edit']()}
+		onclick={() => goto(`/books/${book.id}/edit`)}
+	>
+		<Pen class="size-4" />
+	</Button>
 	<AlertDialog.Root bind:open={deleteDialogOpen}>
 		<AlertDialog.Trigger>
 			{#snippet child({ props }: { props: Record<string, unknown> })}
@@ -39,7 +47,7 @@
 					class="w-1/2 cursor-pointer text-destructive hover:text-destructive md:size-8 md:text-muted-foreground"
 					aria-label={m['book_lookup.action.delete']()}
 				>
-					<Trash2Icon class="size-4" />
+					<Trash class="size-4" />
 				</Button>
 			{/snippet}
 		</AlertDialog.Trigger>
@@ -73,13 +81,4 @@
 			</AlertDialog.Footer>
 		</AlertDialog.Content>
 	</AlertDialog.Root>
-	<Button
-		variant={isDesktop ? 'ghost' : 'outline'}
-		size="icon"
-		class="w-1/2 cursor-pointer text-muted-foreground md:size-8"
-		aria-label={m['book_lookup.action.edit']()}
-		onclick={() => goto(`/books/${book.id}/edit`)}
-	>
-		<Pen class="size-4" />
-	</Button>
 </div>
