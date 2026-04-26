@@ -38,7 +38,7 @@ class TestBook extends TestCase
 
     public function test_store_creates_book(): void
     {
-        $user = User::factory()->create();
+        $user = User::factory()->create(['role' => 'manager']);
         $author = Author::factory()->create();
         $publisher = Publisher::factory()->create();
         $genre = Genre::factory()->create();
@@ -63,7 +63,7 @@ class TestBook extends TestCase
 
     public function test_update_changes_book(): void
     {
-        $user = User::factory()->create();
+        $user = User::factory()->create(['role' => 'manager']);
         $book = $this->createBook(['title' => 'Old Title', 'price' => 1000]);
 
         $response = $this->actingAs($user, 'sanctum')->patchJson("/api/books/{$book->id}", [
@@ -84,7 +84,7 @@ class TestBook extends TestCase
 
     public function test_destroy_deletes_book(): void
     {
-        $user = User::factory()->create();
+        $user = User::factory()->create(['role' => 'manager']);
         $book = $this->createBook();
 
         $response = $this->actingAs($user, 'sanctum')->deleteJson("/api/books/{$book->id}");
