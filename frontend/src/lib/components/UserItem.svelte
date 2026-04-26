@@ -4,7 +4,6 @@
 	import * as Select from '$lib/components/ui/select/index.js';
 	import { Button } from '$lib/components/ui/button/index.js';
 	import PencilIcon from '@lucide/svelte/icons/pencil';
-	import Trash2Icon from '@lucide/svelte/icons/trash-2';
 	import * as m from '$lib/paraglide/messages.js';
 	import { beforeNavigate, goto } from '$app/navigation';
 	import { page } from '$app/state';
@@ -12,6 +11,7 @@
 	import { getLocale } from '$lib/paraglide/runtime';
 	import Spinner from './ui/spinner/spinner.svelte';
 	import { toast } from 'svelte-sonner';
+	import { Trash } from '@lucide/svelte';
 
 	let { user }: { user: User } = $props();
 
@@ -175,7 +175,7 @@
 						class="size-8 text-muted-foreground hover:text-destructive"
 						aria-label={m['admin.user_table.action.delete']()}
 					>
-						<Trash2Icon class="size-4" />
+						<Trash class="size-4" />
 					</Button>
 				{/snippet}
 			</AlertDialog.Trigger>
