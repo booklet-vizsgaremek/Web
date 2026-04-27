@@ -79,7 +79,11 @@
 				<Form.FieldErrors />
 			</Form.Field>
 			<div class="flex gap-3 pt-2">
-				<Button type="submit" class="flex cursor-pointer items-center gap-2" disabled={$submitting}>
+				<Button
+					type="submit"
+					class="flex w-full cursor-pointer items-center gap-2 md:w-max"
+					disabled={$submitting}
+				>
 					{#if $submitting}
 						<Spinner />
 					{:else if page.url.pathname.startsWith('/authors/new')}
