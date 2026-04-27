@@ -42,7 +42,7 @@ class TestAuthor extends TestCase
 
     public function test_store_creates_author(): void
     {
-        $user = User::factory()->create();
+        $user = User::factory()->create(['role' => 'manager']);
 
         $response = $this->actingAs($user, 'sanctum')->postJson('/api/authors', [
             'name' => 'New Author',
@@ -63,7 +63,7 @@ class TestAuthor extends TestCase
 
     public function test_update_changes_author(): void
     {
-        $user = User::factory()->create();
+        $user = User::factory()->create(['role' => 'manager']);
         $author = Author::factory()->create([
             'name' => 'Old Author',
             'biography_en' => 'Old biography',
@@ -87,7 +87,7 @@ class TestAuthor extends TestCase
 
     public function test_destroy_deletes_author(): void
     {
-        $user = User::factory()->create();
+        $user = User::factory()->create(['role' => 'manager']);
         $author = Author::factory()->create();
 
         $response = $this->actingAs($user, 'sanctum')->deleteJson("/api/authors/{$author->id}");
