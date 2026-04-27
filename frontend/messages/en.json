@@ -43,7 +43,8 @@
 		"new_book": "New book",
 		"authors": "Authors",
 		"new_author": "New author",
-		"genres": "Genres"
+		"genres": "Genres",
+		"publishers": "Publishers"
 	},
 	"orders": {
 		"empty": "There aren't any orders yet with the currently selected filter/search",
@@ -272,6 +273,23 @@
 				"has_books": "There are books in this genre. Books in this genre will also get deleted.",
 				"description": "Are you sure you want to delete this genre: {name}? This action cannot be undone."
 			}
+		},
+		"publisher": {
+			"name": "Name",
+			"books": "Books",
+			"action": {
+				"search": "Search for a publisher",
+				"new": "New publisher",
+				"edit": "Edit publisher details",
+				"delete": "Delete publisher",
+				"create_success": "Publisher created successfully",
+				"edit_success": "Publisher details saved successfully",
+				"delete_success": "Publisher deleted successfully"
+			},
+			"delete_dialog": {
+				"has_books": "There are books assigned to this publisher. Books assigned to this publisher will also get deleted.",
+				"description": "Are you sure you want to delete this publisher: {name}? This action cannot be undone."
+			}
 		}
 	},
 	"cart": {
@@ -344,6 +362,7 @@
 	"no_books": "No books have been written by this author",
 	"more_books_in_genre": "More books in this genre: {genre_en}",
 	"management": "Management",
+	"data_management": "Data management",
 	"footer": {
 		"all_rights_reserved": "All rights reserved",
 		"contact": "Contact",

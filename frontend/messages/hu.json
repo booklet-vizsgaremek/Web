@@ -43,7 +43,8 @@
 		"new_book": "Új könyv",
 		"authors": "Szerzők",
 		"new_author": "Új szerző",
-		"genres": "Műfajok"
+		"genres": "Műfajok",
+		"publishers": "Kiadók"
 	},
 	"orders": {
 		"empty": "Még nincsen rendelés, amely megfelelne ezeknek a szűrőknek/keresésnek",
@@ -265,6 +266,23 @@
 				"has_books": "Jelenleg léteznek könyvek ebben a műfajban. Ha törli a műfajt, az abban lévő könyvek is törlődnek.",
 				"description": "Biztos benne, hogy törölni szeretné a(z) {name} műfajt? Ez a művelet nem vonható vissza."
 			}
+		},
+		"publisher": {
+			"name": "Név",
+			"books": "Könyvek",
+			"action": {
+				"search": "Kiadó keresése",
+				"new": "Új kiadó",
+				"edit": "Kiadó adatainak szerkesztése",
+				"delete": "Kiadó törlése",
+				"create_success": "Kiadó sikeresen létrehozva",
+				"edit_success": "A kiadó adatai sikeresen mentve",
+				"delete_success": "Kiadó sikeresen törölve"
+			},
+			"delete_dialog": {
+				"has_books": "Jelenleg léteznek könyvek ehhez a kiadóhoz rendelve. Ha törli a kiadót, az ahhoz rendelt könyvek is törlődnek.",
+				"description": "Biztos benne, hogy törölni szeretné a(z) {name} kiadót? Ez a művelet nem vonható vissza."
+			}
 		}
 	},
 	"cart": {
@@ -328,6 +346,7 @@
 	"no_books": "Ez a szerző még nem írt könyvet",
 	"more_books_in_genre": "Még több könyv ebből a műfajból: {genre_hu}",
 	"management": "Ügyintézés",
+	"data_management": "Adatkezelés",
 	"footer": {
 		"all_rights_reserved": "Minden jog fenntartva",
 		"contact": "Kapcsolat",
