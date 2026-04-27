@@ -39,6 +39,16 @@ export const columns = (onDelete: (author: Author) => void): ColumnDef<Author>[]
 		}
 	},
 	{
+		accessorKey: 'books',
+		header: m['admin.author.books'](),
+		cell: ({ row }) => {
+			const snippet = createRawSnippet<[{ books: number }]>((getBooks) => ({
+				render: () => `<div>${getBooks().books ?? '-'}</div>`
+			}));
+			return renderSnippet(snippet, { books: row.original.books.length });
+		}
+	},
+	{
 		id: 'actions',
 		enableHiding: false,
 		cell: ({ row }) =>

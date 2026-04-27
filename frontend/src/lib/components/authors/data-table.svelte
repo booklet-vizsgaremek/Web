@@ -22,6 +22,7 @@
 	import Button from '$lib/components/ui/button/button.svelte';
 	import { Pencil, Plus, Search, Trash } from '@lucide/svelte';
 	import { goto } from '$app/navigation';
+	import Spinner from '$lib/components/ui/spinner/spinner.svelte';
 
 	type DataTableProps = {
 		data: Author[];
@@ -113,6 +114,11 @@
 						>
 							{m['admin.author.biography_hu']()}: {author.biography_hu ?? '-'}
 						</p>
+						<p
+							class="line-clamp-1 w-full overflow-hidden text-sm text-ellipsis text-muted-foreground"
+						>
+							{m['admin.author.books']()}: {author.books.length ?? '-'}
+						</p>
 						<div class="mt-4 flex flex-row gap-2">
 							<Button
 								class="w-1/2"
@@ -163,7 +169,7 @@
 					{:else}
 						<Table.Row>
 							<Table.Cell colspan={cols.length} class="h-24 text-center">
-								{m['no_results']()}
+								{m['no_results']()}.
 							</Table.Cell>
 						</Table.Row>
 					{/each}
@@ -222,11 +228,14 @@
 			</AlertDialog.Description>
 		</AlertDialog.Header>
 		<AlertDialog.Footer>
-			<AlertDialog.Cancel class="cursor-pointer">{m['actions.cancel']()}</AlertDialog.Cancel>
+			{#if !deleting}
+				<AlertDialog.Cancel class="cursor-pointer">{m['actions.cancel']()}</AlertDialog.Cancel>
+			{/if}
 			<form
 				method="POST"
 				use:enhance={({ formData }) => {
 					formData.append('id', deleteTarget?.id ?? '');
+					deleting = true;
 					return async ({ result, update }) => {
 						if (result.type === 'success') {
 							toast.success(m['admin.author.action.delete_author_success']());
@@ -244,7 +253,11 @@
 					disabled={deleting}
 					type="submit"
 				>
-					{m['admin.author.action.delete']()}
+					{#if deleting}
+						<Spinner />
+					{:else}
+						{m['admin.author.action.delete']()}
+					{/if}
 				</AlertDialog.Action>
 			</form>
 		</AlertDialog.Footer>
