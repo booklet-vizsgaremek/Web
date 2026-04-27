@@ -9,9 +9,12 @@ use App\Models\Author;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Http\Response;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class AuthorController extends Controller
 {
+    use AuthorizesRequests;
+
     /**
      * Display a listing of the resource.
      */
@@ -26,6 +29,7 @@ class AuthorController extends Controller
      */
     public function store(StoreAuthorRequest $request): JsonResource
     {
+        $this->authorize('manager', $request->user());
         $author = Author::create($request->validated())->load(['books.publisher', 'books.genre']);
         return new AuthorResource($author);
     }
@@ -37,9 +41,7 @@ class AuthorController extends Controller
     {
         return new AuthorResource(
             $author->load([
-                'books' => function ($query) use ($request) {
-                    $query->limit($request->integer('limit', 3));
-                },
+                'books',
                 'books.publisher',
                 'books.genre',
                 'books.authors',
@@ -52,6 +54,7 @@ class AuthorController extends Controller
      */
     public function update(UpdateAuthorRequest $request, Author $author): JsonResource
     {
+        $this->authorize('manager', $request->user());
         $author->update($request->validated());
         return new AuthorResource($author->load(['books.publisher', 'books.genre']));
     }
@@ -59,8 +62,16 @@ class AuthorController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Author $author): Response
+    public function destroy(Author $author, Request $request): Response
     {
+        $this->authorize('manager', $request->user());
+
+        $author->books()
+            ->withCount('authors')
+            ->having('authors_count', 1)
+            ->get()
+            ->each->delete();
+
         return $author->delete() ? response()->noContent() : abort(500);
     }
 }
