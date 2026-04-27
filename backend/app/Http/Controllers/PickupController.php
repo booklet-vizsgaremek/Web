@@ -63,12 +63,4 @@ class PickupController extends Controller
 
         return new PickupResource($pickup->load('receipt'));
     }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Pickup $pickup): Response
-    {
-        return $pickup->delete() ? response()->noContent() : abort(500);
-    }
 }

@@ -39,7 +39,7 @@ class ReceiptController extends Controller
                     'user',
                     fn($u) =>
                     $u->whereRaw("$concat LIKE ?", ["%$s%"])
-                    ->orWhere('email', 'like', "%$s%")
+                        ->orWhere('email', 'like', "%$s%")
                 );
             }
         );
@@ -98,13 +98,5 @@ class ReceiptController extends Controller
     {
         $receipt->update($request->validated());
         return new ReceiptResource($receipt->load(['user', 'books', 'coupons', 'pickup']));
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Receipt $receipt): Response
-    {
-        return $receipt->delete() ? response()->noContent() : abort(500);
     }
 }

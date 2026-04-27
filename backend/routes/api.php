@@ -31,8 +31,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('publishers', PublisherController::class)->except(['index', 'show']);
     Route::apiResource('genres', GenreController::class)->except(['index', 'show']);
     Route::apiResource('coupons', CouponController::class)->except(['index', 'show']);
-    Route::apiResource('receipts', ReceiptController::class);
-    Route::apiResource('pickups', PickupController::class);
+    Route::apiResource('receipts', ReceiptController::class)->except(['destroy']);
+    Route::apiResource('pickups', PickupController::class)->except(['destroy']);
     Route::apiResource('wishlists', WishlistController::class)->only(['index', 'store', 'destroy']);
 });
 
