@@ -35,7 +35,7 @@ class TestPublisher extends TestCase
 
     public function test_store_creates_publisher(): void
     {
-        $user = User::factory()->create();
+        $user = User::factory()->create(['role' => 'manager']);
 
         $response = $this->actingAs($user, 'sanctum')->postJson('/api/publishers', [
             'name' => 'New Publisher',
@@ -49,7 +49,7 @@ class TestPublisher extends TestCase
 
     public function test_update_changes_publisher(): void
     {
-        $user = User::factory()->create();
+        $user = User::factory()->create(['role' => 'manager']);
         $publisher = Publisher::factory()->create(['name' => 'Old Publisher']);
 
         $response = $this->actingAs($user, 'sanctum')->patchJson("/api/publishers/{$publisher->id}", [
@@ -65,9 +65,10 @@ class TestPublisher extends TestCase
         ]);
     }
 
-    public function test_destroy_soft_deletes_publisher(): void
+    public function test_destroy_deletes_publisher(): void
     {
-        $user = User::factory()->create();
+        $user = User::factory()->create(['role' => 'manager']);
+        
         $publisher = Publisher::factory()->create();
 
         $response = $this->actingAs($user, 'sanctum')->deleteJson("/api/publishers/{$publisher->id}");
