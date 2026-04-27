@@ -102,7 +102,7 @@ class TestCoupon extends TestCase
         ]);
     }
 
-    public function test_destroy_soft_deletes_coupon(): void
+    public function test_destroy_deletes_coupon(): void
     {
         $user = User::factory()->create();
         $coupon = Coupon::factory()->create();
