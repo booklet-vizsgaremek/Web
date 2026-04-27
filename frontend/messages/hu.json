@@ -42,10 +42,11 @@
 		"dashboard": "Vezérlőpult",
 		"new_book": "Új könyv",
 		"authors": "Szerzők",
-		"new_author": "Új szerző"
+		"new_author": "Új szerző",
+		"genres": "Műfajok"
 	},
 	"orders": {
-		"empty": "Még nincsen rendelés ezzel a státusszal",
+		"empty": "Még nincsen rendelés, amely megfelelne ezeknek a szűrőknek/keresésnek",
 		"user_orders_empty": "Még nem adott le rendelést",
 		"current_status": "Jelenlegi állapot",
 		"order_items": "A rendelés tartalma",
@@ -234,6 +235,7 @@
 			"name": "Név",
 			"biography_hu": "Biográfia Magyarul",
 			"biography_en": "Biográfia Angolul",
+			"books": "Könyvek",
 			"action": {
 				"delete": "Szerző törlése",
 				"new": "Új szerző",
@@ -242,8 +244,26 @@
 				"edit": "Szerző adatainak szerkesztése"
 			},
 			"delete_dialog": {
-				"has_books": "A szerző nevéhez jelenleg művek kötődnek. A könyvek, melyek csak ennek a szerzőnek a nevéhez kötődnek, szerző nélkülivé válnak.",
+				"has_books": "A szerző nevéhez jelenleg művek kötődnek. A könyvek, melyek csak ennek a szerzőnek a nevéhez kötődnek, törlődni fognak.",
 				"description": "Biztos benne, hogy törölni szeretné {name} szerzőt? Ez a művelet nem vonható vissza."
+			}
+		},
+		"genre": {
+			"name_en": "Név Angolul",
+			"name_hu": "Név Magyarul",
+			"books": "Könyvek",
+			"action": {
+				"edit": "Műfaj adatainak szerkesztése",
+				"new": "Új műfaj",
+				"create_success": "Műfaj sikeresen létrehozva",
+				"edit_success": "A műfaj adatai sikeresen mentve",
+				"delete": "Műfaj törlése",
+				"delete_success": "Műfaj sikeresen törölve",
+				"search": "Műfaj keresése"
+			},
+			"delete_dialog": {
+				"has_books": "Jelenleg léteznek könyvek ebben a műfajban. Ha törli a műfajt, az abban lévő könyvek is törlődnek.",
+				"description": "Biztos benne, hogy törölni szeretné a(z) {name} műfajt? Ez a művelet nem vonható vissza."
 			}
 		}
 	},

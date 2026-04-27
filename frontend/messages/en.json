@@ -42,10 +42,11 @@
 		"dashboard": "Dashboard",
 		"new_book": "New book",
 		"authors": "Authors",
-		"new_author": "New author"
+		"new_author": "New author",
+		"genres": "Genres"
 	},
 	"orders": {
-		"empty": "There aren't any orders yet with the currently selected status",
+		"empty": "There aren't any orders yet with the currently selected filter/search",
 		"user_orders_empty": "You have not placed an order yet",
 		"current_status": "Current status",
 		"order_items": "Items of the order",
@@ -241,6 +242,7 @@
 			"name": "Name",
 			"biography_hu": "Biography in Hungarian",
 			"biography_en": "Biography in English",
+			"books": "Books",
 			"action": {
 				"delete": "Delete author",
 				"new": "New author",
@@ -249,8 +251,26 @@
 				"edit": "Edit author's details"
 			},
 			"delete_dialog": {
-				"has_books": "The author currently has books tied to their name. Books tied only to their name will get marked authorless.",
+				"has_books": "The author currently has books tied to their name. Books tied only to their name will get deleted as well.",
 				"description": "Are you sure you want to delete this author: {name}? This action cannot be undone."
+			}
+		},
+		"genre": {
+			"name_en": "Name in English",
+			"name_hu": "Name in Hungarian",
+			"books": "Könyvek",
+			"action": {
+				"edit": "Edit genre details",
+				"new": "New genre",
+				"create_success": "Genre created successfully",
+				"edit_success": "Genre details saved successfully",
+				"delete": "Delete genre",
+				"delete_success": "Genre deleted successfully",
+				"search": "Search for a genre"
+			},
+			"delete_dialog": {
+				"has_books": "There are books in this genre. Books in this genre will also get deleted.",
+				"description": "Are you sure you want to delete this genre: {name}? This action cannot be undone."
 			}
 		}
 	},
