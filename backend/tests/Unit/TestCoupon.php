@@ -17,6 +17,7 @@ class TestCoupon extends TestCase
 
     public function test_index_returns_active_coupons(): void
     {
+        
         $coupon = Coupon::factory()->create([
             'code' => null,
             'user_id' => null,
@@ -46,7 +47,8 @@ class TestCoupon extends TestCase
 
     public function test_store_creates_coupon(): void
     {
-        $user = User::factory()->create();
+        $user = User::factory()->create(['role' => 'manager']);
+        
         $book = $this->createBook();
 
         $response = $this->actingAs($user, 'sanctum')->postJson('/api/coupons', [
@@ -70,7 +72,8 @@ class TestCoupon extends TestCase
 
     public function test_update_changes_coupon(): void
     {
-        $user = User::factory()->create();
+        $user = User::factory()->create(['role' => 'manager']);
+        
         $book = $this->createBook();
         $coupon = Coupon::factory()->create([
             'book_id' => $book->id,
@@ -104,7 +107,8 @@ class TestCoupon extends TestCase
 
     public function test_destroy_deletes_coupon(): void
     {
-        $user = User::factory()->create();
+        $user = User::factory()->create(['role' => 'manager']);
+        
         $coupon = Coupon::factory()->create();
 
         $response = $this->actingAs($user, 'sanctum')->deleteJson("/api/coupons/{$coupon->id}");
