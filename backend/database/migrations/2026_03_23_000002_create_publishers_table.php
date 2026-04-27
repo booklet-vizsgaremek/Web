@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('publishers', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('name');
+            $table->string('name', 30);
             $table->timestamps();
             $table->softDeletes();
         });

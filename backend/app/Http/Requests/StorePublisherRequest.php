@@ -22,7 +22,7 @@ class StorePublisherRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string', 'max:255', 'unique:publishers,name']
+            'name' => ['required', 'string', 'max:30', 'unique:publishers,name']
         ];
     }
 }

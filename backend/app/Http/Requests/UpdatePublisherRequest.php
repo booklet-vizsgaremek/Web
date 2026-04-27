@@ -22,7 +22,7 @@ class UpdatePublisherRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['sometimes', 'string', 'max:255', 'unique:publishers,name,' . $this->route('publisher')->id]
+            'name' => ['sometimes', 'string', 'max:30', 'unique:publishers,name,' . $this->route('publisher')->id]
         ];
     }
 }
