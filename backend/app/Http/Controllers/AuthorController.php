@@ -66,11 +66,13 @@ class AuthorController extends Controller
     {
         $this->authorize('manager', $request->user());
 
-        $author->books()
-            ->withCount('authors')
-            ->having('authors_count', 1)
-            ->get()
-            ->each->delete();
+        if ($author->books()->count()) {
+            $author->books()
+                ->withCount('authors')
+                ->having('authors_count', 1)
+                ->get()
+                ->each->delete();
+        }
 
         return $author->delete() ? response()->noContent() : abort(500);
     }
