@@ -3,6 +3,9 @@
 	import BookCarousel from '$lib/components/BookCarousel.svelte';
 	import Autoplay from 'embla-carousel-autoplay';
 	import * as Carousel from '$lib/components/ui/carousel/index.js';
+	import { page } from '$app/state';
+	import Checkbox from '$lib/components/ui/checkbox/checkbox.svelte';
+	import Label from '$lib/components/ui/label/label.svelte';
 
 	const plugin = Autoplay({ delay: 5000, stopOnInteraction: true });
 	let autoplayEnabled = $state(true);
@@ -12,9 +15,6 @@
 		else plugin.play();
 	});
 
-	import { page } from '$app/state';
-	import Checkbox from '$lib/components/ui/checkbox/checkbox.svelte';
-	import Label from '$lib/components/ui/label/label.svelte';
 	const { data } = $props();
 </script>
 
