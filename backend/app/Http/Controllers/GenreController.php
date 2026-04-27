@@ -6,11 +6,15 @@ use App\Http\Requests\StoreGenreRequest;
 use App\Http\Requests\UpdateGenreRequest;
 use App\Http\Resources\GenreResource;
 use App\Models\Genre;
+use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Http\Response;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class GenreController extends Controller
 {
+    use AuthorizesRequests;
+
     /**
      * Display a listing of the resource.
      */
@@ -25,6 +29,7 @@ class GenreController extends Controller
      */
     public function store(StoreGenreRequest $request): JsonResource
     {
+        $this->authorize('manager', $request->user());
         $genre = Genre::create($request->validated())->load(['books', 'coupons']);
         return new GenreResource($genre);
     }
@@ -42,6 +47,7 @@ class GenreController extends Controller
      */
     public function update(UpdateGenreRequest $request, Genre $genre): JsonResource
     {
+        $this->authorize('manager', $request->user());
         $genre->update($request->validated());
         return new GenreResource($genre->load(['books', 'coupons']));
     }
@@ -49,8 +55,10 @@ class GenreController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Genre $genre): Response
+    public function destroy(Genre $genre, Request $request): Response
     {
+        $this->authorize('manager', $request->user());
+        $genre->books()->delete();
         return $genre->delete() ? response()->noContent() : abort(500);
     }
 }
