@@ -56,7 +56,7 @@
 		{:else}
 			<h2 class="mb-4 text-2xl">{m['book_count']({ count: data.author.books.length })}</h2>
 			<div class="grid grid-cols-1 gap-4 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-				{#each data.author.books as book (book.id)}
+				{#each data.author.books.slice(0, 3) as book (book.id)}
 					<BookItem {book} discounts={page.data.discounts} />
 				{/each}
 				<div class="mt-12 flex w-full items-center justify-center px-6 md:m-0 md:h-full">
