@@ -126,6 +126,8 @@ class UserController extends Controller
 
     public function updateRole(UpdateUserRoleRequest $request, User $user): JsonResource|JsonResponse
     {
+        $this->authorize('admin', $request->user());
+
         if (Auth::id() === $user->id) {
             return response()->json([
                 'message_hu' => 'Saját szerepkörét nem változtathatja meg.',

@@ -11,9 +11,12 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class CouponController extends Controller
 {
+    use AuthorizesRequests;
+
     /**
      * Display a listing of the resource.
      */
@@ -48,13 +51,9 @@ class CouponController extends Controller
             ->where('ends_at', '>=', now())
             ->first();
 
-        if (!$coupon) {
-            return response()->json(['message_en' => 'Invalid or expired coupon code.', 'message_hu' => 'Érvénytelen vagy lejárt kuponkód.'], 404);
-        }
+        if (!$coupon) return response()->json(['message_en' => 'Invalid or expired coupon code.', 'message_hu' => 'Érvénytelen vagy lejárt kuponkód.'], 404);
 
-        if ($coupon->user_id && $coupon->user_id !== Auth::id()) {
-            return response()->json(['message_en' => 'This coupon is not valid for your account.', 'message_hu' => 'Ezt a kupont nem használhatja fel.'], 403);
-        }
+        if ($coupon->user_id && $coupon->user_id !== Auth::id()) return response()->json(['message_en' => 'This coupon is not valid for your account.', 'message_hu' => 'Ezt a kupont nem használhatja fel.'], 403);
 
         return new CouponResource($coupon);
     }
@@ -64,6 +63,7 @@ class CouponController extends Controller
      */
     public function store(StoreCouponRequest $request): JsonResource
     {
+        $this->authorize('manager', $request->user());
         $coupon = Coupon::create($request->validated())->load(['book', 'genre', 'user']);
         return new CouponResource($coupon);
     }
@@ -81,6 +81,7 @@ class CouponController extends Controller
      */
     public function update(UpdateCouponRequest $request, Coupon $coupon): JsonResource
     {
+        $this->authorize('manager', $request->user());
         $coupon->update($request->validated());
         return new CouponResource($coupon->load(['book', 'genre', 'user']));
     }
@@ -88,8 +89,9 @@ class CouponController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Coupon $coupon): Response
+    public function destroy(Coupon $coupon, Request $request): Response
     {
+        $this->authorize('manager', $request->user());
         return $coupon->delete() ? response()->noContent() : abort(500);
     }
 }
