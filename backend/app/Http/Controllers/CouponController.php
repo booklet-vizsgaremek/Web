@@ -20,24 +20,55 @@ class CouponController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(): JsonResource
+    public function index(Request $request): JsonResource
     {
-        $userId = auth('sanctum')->id();
+        if ($request->boolean('is_valid')) {
+            $userId = auth('sanctum')->id();
 
-        $coupons = Coupon::with(['book', 'genre', 'user'])
-            ->whereNull('code')
-            ->where('starts_at', '<=', now())
-            ->where('ends_at', '>=', now())
-            ->where(function ($query) use ($userId) {
-                $query->whereNull('user_id');
-                if ($userId) {
-                    $query->orWhere('user_id', $userId);
-                }
-            })
-            ->get();
+            $coupons = Coupon::with(['book', 'genre', 'user'])
+                ->whereNull('code')
+                ->where('starts_at', '<=', now())
+                ->where('ends_at', '>=', now())
+                ->where(function ($query) use ($userId) {
+                    $query->whereNull('user_id');
+                    if ($userId) $query->orWhere('user_id', $userId);
+                })
+                ->get();
 
-        return CouponResource::collection($coupons);
+            return CouponResource::collection($coupons);
+        }
+
+        if (!$request->boolean('is_valid') && $request->user()) $this->authorize('manager');
+
+        $query = Coupon::with(['book', 'genre', 'user']);
+
+        if ($request->filled('scope')) {
+            match ($request->scope) {
+                'book'  => $query->whereNotNull('book_id'),
+                'genre' => $query->whereNotNull('genre_id'),
+                default => null,
+            };
+        }
+
+        if ($request->filled('has_user')) {
+            match ($request->has_user) {
+                'yes' => $query->whereNotNull('user_id'),
+                'no'  => $query->whereNull('user_id'),
+                default => null,
+            };
+        }
+
+        if ($request->filled('starts_after')) $query->where('starts_at', '>=', $request->starts_after);
+        if ($request->filled('starts_before')) $query->where('starts_at', '<=', $request->starts_before);
+        if ($request->filled('ends_after')) $query->where('ends_at', '>=', $request->ends_after);
+        if ($request->filled('ends_before')) $query->where('ends_at', '<=', $request->ends_before);
+
+        return CouponResource::collection(
+            $query->orderBy('created_at', 'desc')
+                ->paginate($request->integer('per_page', 10))
+        );
     }
+
 
     public function validate(Request $request): JsonResource|JsonResponse
     {
