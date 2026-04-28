@@ -59,8 +59,7 @@
 						<a
 							href="/authors/{author.id}"
 							onclick={() => (openPopover = false)}
-							class="block rounded-sm px-2 py-1.5 text-sm {page.url.pathname ==
-							`/authors/${author.id}`
+							class="block px-2 py-1.5 text-sm {page.url.pathname == `/authors/${author.id}`
 								? 'pointer-events-none text-muted'
 								: 'hover:bg-accent hover:text-accent-foreground'}"
 						>
@@ -91,8 +90,7 @@
 						<a
 							href="/authors/{author.id}"
 							onclick={() => (openDrawer = false)}
-							class="block rounded-sm px-3 py-2.5 text-sm {page.url.pathname ==
-							`/authors/${author.id}`
+							class="block px-3 py-2.5 text-sm {page.url.pathname == `/authors/${author.id}`
 								? 'pointer-events-none text-muted'
 								: 'hover:bg-accent hover:text-accent-foreground'}"
 						>
