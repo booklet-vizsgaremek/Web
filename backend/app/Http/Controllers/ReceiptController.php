@@ -6,6 +6,7 @@ use App\Http\Requests\StoreReceiptRequest;
 use App\Http\Requests\UpdateReceiptRequest;
 use App\Http\Resources\ReceiptResource;
 use App\Models\Book;
+use App\Models\Coupon;
 use App\Models\Receipt;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Http\Request;
@@ -77,7 +78,15 @@ class ReceiptController extends Controller
 
         foreach ($request->books as $book) Book::where('id', $book['id'])->decrement('stock', $book['quantity']);
 
-        if ($request->has('coupons')) $receipt->coupons()->attach($request->coupons);
+        if ($request->has('coupons')) {
+            foreach ($request->coupons as $couponId) {
+                $coupon = Coupon::find($couponId);
+                if ($coupon && $coupon->code && $coupon->user_id) {
+                    $coupon->update(['ends_at' => now()]);
+                }
+            }
+            $receipt->coupons()->attach($request->coupons);
+        }
         $receipt->pickup()->create(['status' => 'pending']);
 
         return new ReceiptResource($receipt->load(['user', 'books', 'coupons', 'pickup']));
