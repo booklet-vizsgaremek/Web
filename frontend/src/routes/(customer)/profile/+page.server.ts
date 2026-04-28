@@ -7,6 +7,7 @@ import { fail } from '@sveltejs/kit';
 import { API_URL } from '$env/static/private';
 import * as m from '$lib/paraglide/messages.js';
 import { userDataChangeSchema } from '$lib/schemas/userDataChange';
+import { userDeleteSchema } from '$lib/schemas/userDelete';
 
 export const load: PageServerLoad = async ({ locals }) => {
 	return {
@@ -19,12 +20,35 @@ export const load: PageServerLoad = async ({ locals }) => {
 				last_name: locals.user?.last_name ?? ''
 			},
 			zod4(userDataChangeSchema)
-		)
+		),
+		userDeleteForm: await superValidate(zod4(userDeleteSchema))
 	};
 };
 
 export const actions: Actions = {
 	deleteAccount: async (event) => {
+		const form = await superValidate(event, zod4(userDeleteSchema));
+		if (!form.valid) return fail(400, { form, error: m['messages.invalid_data']() });
+
+		const passwordCheckResponse = await event.fetch(`${API_URL}/auth/login`, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+				'X-Requested-With': 'XMLHttpRequest'
+			},
+			body: JSON.stringify({
+				email: event.locals.user?.email,
+				password: form.data.password
+			})
+		});
+
+		if (!passwordCheckResponse.ok) {
+			return fail(401, {
+				form,
+				error: m['messages.invalid_current_password']()
+			});
+		}
+
 		const response = await event.fetch(`${API_URL}/users/${event.locals.user?.id}`, {
 			method: 'DELETE',
 			headers: {
@@ -35,14 +59,13 @@ export const actions: Actions = {
 		});
 
 		if (response.status !== 204)
-			return fail(response.status, { error: m['messages.server_error']() });
-		else {
-			return { success: true };
-		}
+			return fail(response.status, { form, error: m['messages.server_error']() });
+
+		return { success: true, form };
 	},
 	userDataChange: async (event) => {
 		const form = await superValidate(event, zod4(userDataChangeSchema));
-		if (!form.valid) return fail(400, { form, error: m['messages.server_error']() });
+		if (!form.valid) return fail(400, { form, error: m['messages.invalid_data']() });
 
 		const response = await event.fetch(`${API_URL}/users/${event.locals.user?.id}`, {
 			method: 'PATCH',
@@ -54,7 +77,11 @@ export const actions: Actions = {
 			body: JSON.stringify(form.data)
 		});
 
-		if (!response.ok) return fail(response.status, { form, error: m['messages.server_error']() });
+		if (!response.ok)
+			return fail(response.status, {
+				form,
+				error: response.status === 422 ? m['messages.email_taken']() : m['messages.server_error']()
+			});
 
 		const res = await response.json();
 

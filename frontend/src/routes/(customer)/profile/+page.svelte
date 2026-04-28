@@ -9,15 +9,37 @@
 	import UserDataChangeForm from '$lib/components/UserDataChangeForm.svelte';
 	import * as AlertDialog from '$lib/components/ui/alert-dialog';
 	import Spinner from '$lib/components/ui/spinner/spinner.svelte';
-	import Label from '$lib/components/ui/label/label.svelte';
-	import Input from '$lib/components/ui/input/input.svelte';
-	import { enhance } from '$app/forms';
+	import { Form, Input } from '$lib/components/ui';
+	import { toast } from 'svelte-sonner';
+	import { superForm } from 'sveltekit-superforms';
+	import { zod4Client } from 'sveltekit-superforms/adapters';
+	import { userDeleteSchema } from '$lib/schemas/userDelete';
 
 	let accountDeletionDialogOpen = $state(false);
-	let isAccountDeletionLoading = $state(false);
-	let email = $state('');
 
 	const { data } = $props();
+
+	// svelte-ignore state_referenced_locally
+	const userDeleteForm = superForm(data.userDeleteForm, {
+		validators: zod4Client(userDeleteSchema),
+		onUpdate: ({ result }) => {
+			if (result.status === 200) {
+				goto('/');
+			} else if (result.data?.error) {
+				toast.error(result.data.error);
+			}
+		}
+	});
+
+	const { form: formData, enhance: superFormEnhance, submitting } = userDeleteForm;
+
+	$effect(() => {
+		if (!accountDeletionDialogOpen) {
+			userDeleteForm.reset();
+		} else {
+			userDeleteForm.errors.clear();
+		}
+	});
 </script>
 
 <AlertDialog.Root bind:open={accountDeletionDialogOpen}>
@@ -28,34 +50,40 @@
 				{m['auth.delete_account_dialog.description']()}
 			</AlertDialog.Description>
 		</AlertDialog.Header>
-		<div class="grid gap-3">
-			<Label for="email">{m['auth.email']()}</Label>
-			<Input id="email" name="email" bind:value={email} placeholder={page.data.user?.email} />
-		</div>
-		<AlertDialog.Footer>
-			{#if !isAccountDeletionLoading}
-				<AlertDialog.Cancel class="cursor-pointer">{m['actions.cancel']()}</AlertDialog.Cancel>
-			{/if}
-			<form
-				action="?/deleteAccount"
-				method="POST"
-				use:enhance={async () => {
-					isAccountDeletionLoading = true;
-				}}
-			>
+		<form action="?/deleteAccount" method="POST" use:superFormEnhance class="space-y-4">
+			<Form.Field form={userDeleteForm} name="password">
+				<Form.Control>
+					{#snippet children({ props })}
+						<Form.Label>{m['auth.password']()}</Form.Label>
+						<Input
+							type="password"
+							{...props}
+							bind:value={$formData.password}
+							placeholder={m['auth.password']()}
+							disabled={$submitting}
+						/>
+					{/snippet}
+				</Form.Control>
+				<Form.FieldErrors />
+			</Form.Field>
+			<AlertDialog.Footer>
+				{#if !$submitting}
+					<AlertDialog.Cancel class="cursor-pointer">{m['actions.cancel']()}</AlertDialog.Cancel>
+				{/if}
 				<AlertDialog.Action
 					class="cursor-pointer"
 					variant="destructive"
-					disabled={isAccountDeletionLoading || email !== page.data.user?.email}
+					type="submit"
+					disabled={$submitting || $formData.password === ''}
 				>
-					{#if isAccountDeletionLoading}
+					{#if $submitting}
 						<Spinner />
 					{:else}
 						{m['auth.delete_account']()}
 					{/if}
 				</AlertDialog.Action>
-			</form>
-		</AlertDialog.Footer>
+			</AlertDialog.Footer>
+		</form>
 	</AlertDialog.Content>
 </AlertDialog.Root>
 
