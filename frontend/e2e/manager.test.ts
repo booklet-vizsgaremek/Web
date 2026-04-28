@@ -13,7 +13,7 @@ test.beforeEach(async ({ context }) => {
 		{
 			name: 'PARAGLIDE_LANGUAGE',
 			value: 'en',
-			domain: 'http://frontend.vm1.test',
+			domain: BASE_URL,
 			path: '/'
 		}
 	]);
@@ -36,7 +36,9 @@ test('manager can sign in and sees dashboard navigation', async ({ page }) => {
 	await expect(page.getByRole('link', { name: 'Sign in' })).not.toBeVisible();
 });
 
-test('manager dashboard shows management actions without admin-only users action', async ({ page }) => {
+test('manager dashboard shows management actions without admin-only users action', async ({
+	page
+}) => {
 	await signInAsManager(page);
 	await waitForAppReady(page);
 
@@ -71,7 +73,6 @@ test('manager can open genres management and create dialog', async ({ page }) =>
 	await expect(page.getByRole('heading', { name: 'Genres' })).toBeVisible();
 	await page.getByRole('button', { name: 'New genre' }).click();
 
-	
 	await expect(page.getByLabel('Name in Hungarian')).toBeVisible();
 	await expect(page.getByLabel('Name in English')).toBeVisible();
 	await expect(page.getByRole('button', { name: 'Save' })).toBeVisible();
@@ -106,7 +107,10 @@ test('manager can open an order details page', async ({ page }) => {
 	await page.goto(`${BASE_URL}/staff/orders`);
 	await waitForAppReady(page);
 
-	await page.getByRole('link', { name: /order #/i }).first().click();
+	await page
+		.getByRole('link', { name: /order #/i })
+		.first()
+		.click();
 	await waitForAppReady(page);
 
 	await expect(page).toHaveURL(/\/staff\/orders\/.+$/);
@@ -137,9 +141,9 @@ test('manager can open new book form', async ({ page }) => {
 	await expect(page.getByLabel('Price')).toBeVisible();
 	await expect(page.getByLabel('Release year')).toBeVisible();
 	await expect(page.getByLabel('Pages')).toBeVisible();
-	await expect(page.getByText('Publisher', {exact: true})).toBeVisible();
-	await expect(page.getByText('Genre', {exact: true})).toBeVisible();
-	await expect(page.getByText('Author(s)', {exact: true})).toBeVisible();
+	await expect(page.getByText('Publisher', { exact: true })).toBeVisible();
+	await expect(page.getByText('Genre', { exact: true })).toBeVisible();
+	await expect(page.getByText('Author(s)', { exact: true })).toBeVisible();
 	await expect(page.getByLabel('Stock')).toBeVisible();
 	await expect(page.getByRole('button', { name: 'Create' })).toBeVisible();
 });
