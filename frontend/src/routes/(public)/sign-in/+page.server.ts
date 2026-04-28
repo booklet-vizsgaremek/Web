@@ -64,7 +64,7 @@ export const actions = {
 			302,
 			validateRedirect(
 				event.url.searchParams.get('redirect'),
-				data.role === 'customer' ? '/' : `/${data.role}`
+				data.role === 'customer' ? '/' : `/dashboard`
 			)
 		);
 	}

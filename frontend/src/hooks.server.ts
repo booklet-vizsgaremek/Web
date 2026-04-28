@@ -4,7 +4,6 @@ import { paraglideMiddleware } from '$lib/paraglide/server';
 import { API_URL } from '$env/static/private';
 import { redirect } from '@sveltejs/kit';
 import { dev } from '$app/environment';
-import type { User } from '$lib/types';
 
 const handleParaglide: Handle = ({ event, resolve }) =>
 	paraglideMiddleware(event.request, ({ request, locale }) => {
@@ -48,14 +47,7 @@ const handleAuth: Handle = async ({ event, resolve }) => {
 		(event.url.pathname.startsWith('/sign-in') || event.url.pathname.startsWith('/sign-up')) &&
 		user
 	) {
-		const defaultRoutes: Record<Exclude<User['role'], null>, string> = {
-			admin: '/admin',
-			manager: '/manager',
-			staff: '/staff',
-			customer: '/profile'
-		};
-
-		redirect(302, defaultRoutes[user.role as Exclude<User['role'], null>]);
+		redirect(302, '/dashboard');
 	}
 
 	return resolve(event);

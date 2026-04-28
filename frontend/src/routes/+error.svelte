@@ -27,7 +27,7 @@
 	<Button
 		class="mt-4 cursor-pointer"
 		onclick={() => {
-			goto(!page.data.user || page.data.user.role === 'customer' ? '/' : `/${page.data.user.role}`);
+			goto(!page.data.user || page.data.user.role === 'customer' ? '/' : `/dashboard`);
 		}}
 	>
 		{page.status === 403 ? m['navigation.back']() : m['navigation.back_to_home']()}
