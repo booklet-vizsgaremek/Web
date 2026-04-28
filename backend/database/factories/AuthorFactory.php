@@ -9,6 +9,34 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  */
 class AuthorFactory extends Factory
 {
+    private static array $authors = [
+        ['name' => 'J.R.R. Tolkien'],
+        ['name' => 'Frank Herbert'],
+        ['name' => 'George Orwell'],
+        ['name' => 'Aldous Huxley'],
+        ['name' => 'Ray Bradbury'],
+        ['name' => 'Patrick Rothfuss'],
+        ['name' => 'Douglas Adams'],
+        ['name' => 'Orson Scott Card'],
+        ['name' => 'Andy Weir'],
+        ['name' => 'Neal Stephenson'],
+        ['name' => 'William Gibson'],
+        ['name' => 'Ursula K. Le Guin'],
+        ['name' => 'Dan Simmons'],
+        ['name' => 'Isaac Asimov'],
+        ['name' => 'Brandon Sanderson'],
+        ['name' => 'George R.R. Martin'],
+        ['name' => 'Ernest Cline'],
+        ['name' => 'Philip K. Dick'],
+        ['name' => 'Arthur C. Clarke'],
+        ['name' => 'H.G. Wells'],
+        ['name' => 'Larry Niven'],
+        ['name' => 'Jerry Pournelle'],
+        ['name' => 'Gregory Benford'],
+    ];
+
+    private static int $index = 0;
+
     /**
      * Define the model's default state.
      *
@@ -16,10 +44,11 @@ class AuthorFactory extends Factory
      */
     public function definition(): array
     {
+        $author = self::$authors[self::$index % count(self::$authors)];
+        self::$index++;
+
         return [
-            'name' => fake()->name(),
-            'biography_en' => fake()->paragraph(3),
-            'biography_hu' => fake()->paragraph(3)
+            'name' => $author['name'],
         ];
     }
 }

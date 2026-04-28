@@ -9,6 +9,19 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  */
 class PublisherFactory extends Factory
 {
+    private static array $publishers = [
+        'Tor Books',
+        'Del Rey Books',
+        'Gollancz',
+        'Orbit Books',
+        'Ace Books',
+        'Bantam Spectra',
+        'HarperCollins',
+        'Subterranean Press',
+    ];
+
+    private static int $index = 0;
+
     /**
      * Define the model's default state.
      *
@@ -16,8 +29,11 @@ class PublisherFactory extends Factory
      */
     public function definition(): array
     {
+        $publisher = self::$publishers[self::$index % count(self::$publishers)];
+        self::$index++;
+
         return [
-            'name' => fake()->company()
+            'name' => $publisher,
         ];
     }
 }
