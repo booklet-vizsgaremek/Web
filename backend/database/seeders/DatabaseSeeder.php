@@ -22,9 +22,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        Author::factory(10)->create();
-        Publisher::factory(5)->create();
-        Genre::factory(5)->create();
+        Author::factory(23)->create();
+        Publisher::factory(8)->create();
+        Genre::factory(7)->create();
 
         User::factory(6)->create([
             'role' => 'customer'
@@ -62,14 +62,12 @@ class DatabaseSeeder extends Seeder
             'role' => 'admin'
         ]);
 
-        Book::factory(50)->create()->each(function ($book) {
-            $authorIds = Author::inRandomOrder()->limit(rand(1, 3))->pluck('id');
-            $book->authors()->sync($authorIds);
-        });
+        $this->call([
+            BookSeeder::class,
+            WishlistSeeder::class,
+        ]);
 
-        Coupon::factory(3)->create();
+        Coupon::factory(4)->create();
         Receipt::factory(15)->create();
-
-        $this->call(WishlistSeeder::class);
     }
 }
