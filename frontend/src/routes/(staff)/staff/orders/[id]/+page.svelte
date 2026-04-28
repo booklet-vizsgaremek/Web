@@ -10,6 +10,7 @@
 	import { getLocale } from '$lib/paraglide/runtime';
 	import { ChevronLeft } from '@lucide/svelte';
 	import { formatCurrency } from '$lib/components/Price.svelte';
+	import { PUBLIC_STORAGE_URL } from '$env/static/public';
 
 	let { data }: { data: { receipt: Receipt } } = $props();
 
@@ -163,7 +164,7 @@
 						<a href="/books/{book.id}">
 							{#if book.img_path}
 								<img
-									src={book.img_path}
+									src="{PUBLIC_STORAGE_URL}/{book.img_path}"
 									alt={m['accessibility.book_cover']()}
 									class="aspect-2/3 w-16 object-cover"
 								/>
