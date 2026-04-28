@@ -54,7 +54,7 @@ class ReceiptFactory extends Factory
                     ->first();
 
                 if ($coupon) $receipt->coupons()->attach($coupon->id);
-                $receipt->pickup()->create(['status' => 'pending']);
+                $receipt->pickup()->create(['status' => fake()->randomElement(['pending', 'ready', 'completed', 'cancelled'])]);
             }
         });
     }
