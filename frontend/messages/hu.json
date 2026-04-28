@@ -35,6 +35,7 @@
 		"checkout": "Pénztár",
 		"account_settings": "Fiók",
 		"book_lookup": "Könyvböngésző",
+		"books": "Könyvek",
 		"orders": "Rendelések",
 		"order": "Rendelés #{id}",
 		"wishlist": "Kívánságlista",
@@ -44,7 +45,8 @@
 		"authors": "Szerzők",
 		"new_author": "Új szerző",
 		"genres": "Műfajok",
-		"publishers": "Kiadók"
+		"publishers": "Kiadók",
+		"coupons": "Kuponok és leárazások"
 	},
 	"orders": {
 		"empty": "Még nincsen rendelés, amely megfelelne ezeknek a szűrőknek/keresésnek",
@@ -199,7 +201,7 @@
 			"no_results": "Nem található felhasználó.",
 			"columns": "Oszlopok",
 			"name": "Név",
-			"email": "E-mail",
+			"email": "E-mail cím",
 			"role": "Szerepkör",
 			"orders": "Rendelések",
 			"actions": "Műveletek",
@@ -283,6 +285,55 @@
 				"has_books": "Jelenleg léteznek könyvek ehhez a kiadóhoz rendelve. Ha törli a kiadót, az ahhoz rendelt könyvek is törlődnek.",
 				"description": "Biztos benne, hogy törölni szeretné a(z) {name} kiadót? Ez a művelet nem vonható vissza."
 			}
+		},
+		"coupon": {
+			"discount": "Kedvezmény (%)",
+			"starts_at": "Kezdő dátum",
+			"ends_at": "Lejárat dátuma",
+			"code": "Kuponkód",
+			"book": "Könyv",
+			"genre": "Műfaj",
+			"user": "Felhasználó",
+			"type": "Típus",
+			"type_code": "Kódos kupon",
+			"type_auto": "Automatikus kupon",
+			"scope_book": "Könyvre",
+			"scope_genre": "Műfajra",
+			"scope_all": "Mindenkire",
+			"scope_user": "Felhasználóra",
+			"action": {
+				"new": "Új kupon",
+				"edit": "Kupon szerkesztése",
+				"delete": "Kupon törlése",
+				"search": "Kupon keresése",
+				"create_success": "Kupon sikeresen létrehozva",
+				"edit_success": "Kupon sikeresen mentve",
+				"delete_success": "Kupon sikeresen törölve"
+			},
+			"delete_dialog": {
+				"description": "Biztosan törölni szeretné ezt a kupont? Ez a művelet nem vonható vissza."
+			},
+			"select_book": "Könyv kiválasztása",
+			"select_genre": "Műfaj kiválasztása",
+			"select_user": "Felhasználó kiválasztása (opcionális)",
+			"no_book_selected": "Nincs könyv kiválasztva",
+			"no_genre_selected": "Nincs műfaj kiválasztva",
+			"no_user_selected": "Bárki felhasználhatja",
+			"validation": {
+				"book_or_genre": "Könyvet vagy műfajt kötelező megadni"
+			},
+			"filter": {
+				"apply": "Szűrők alkalmazása",
+				"clear": "Szűrők törlése",
+				"scope": "Hatókör",
+				"has_user": "Felhasználóhoz kötve",
+				"no_user": "Mindenki számára",
+				"all": "Mind",
+				"starts_at_range": "Kezdő dátum tartomány",
+				"ends_at_range": "Lejárat tartomány",
+				"label": "Szűrők"
+			},
+			"no_results": "Nincs kupon"
 		}
 	},
 	"cart": {
