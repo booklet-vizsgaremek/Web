@@ -24,7 +24,7 @@
 		"danger_zone": "Veszélyzóna",
 		"delete_account": "Fiók törlése",
 		"delete_account_dialog": {
-			"description": "Biztos benne, hogy törölni szeretné fiókját? Ahhoz, hogy biztosra menjünk, hogy tényleg el szeretné végezni ezt a műveletet, kérjük írja be az email címét az alábbi dobozba."
+			"description": "Biztos benne, hogy törölni szeretné fiókját? Ahhoz, hogy biztosra menjünk, hogy tényleg el szeretné végezni ezt a műveletet, kérjük írja be a jelenlegi jelszavát az alábbi dobozba."
 		},
 		"account": "Fiók",
 		"general": "Általános"
@@ -295,20 +295,18 @@
 			"genre": "Műfaj",
 			"user": "Felhasználó",
 			"type": "Típus",
-			"type_code": "Kódos kupon",
-			"type_auto": "Automatikus kupon",
 			"scope_book": "Könyvre",
 			"scope_genre": "Műfajra",
 			"scope_all": "Mindenkire",
 			"scope_user": "Felhasználóra",
 			"action": {
-				"new": "Új kupon",
-				"edit": "Kupon szerkesztése",
-				"delete": "Kupon törlése",
-				"search": "Kupon keresése",
-				"create_success": "Kupon sikeresen létrehozva",
-				"edit_success": "Kupon sikeresen mentve",
-				"delete_success": "Kupon sikeresen törölve"
+				"new": "Új kupon/kedvezmény",
+				"edit": "Kupon/Kedvezmény szerkesztése",
+				"delete": "Kupon/Kedvezmény törlése",
+				"search": "Kupon/Kedvezmény keresése",
+				"create_success": "Kupon/Kedvezmény sikeresen létrehozva",
+				"edit_success": "Kupon/Kedvezmény sikeresen mentve",
+				"delete_success": "Kupon/Kedvezmény sikeresen törölve"
 			},
 			"delete_dialog": {
 				"description": "Biztosan törölni szeretné ezt a kupont? Ez a művelet nem vonható vissza."
@@ -333,7 +331,10 @@
 				"ends_at_range": "Lejárat tartomány",
 				"label": "Szűrők"
 			},
-			"no_results": "Nincs kupon"
+			"no_results": "Nincs kupon",
+			"type_coupon": "Kupon",
+			"type_discount": "Kedvezmény",
+			"code_placeholder": "Adja meg a kuponkódot"
 		}
 	},
 	"cart": {
@@ -371,7 +372,7 @@
 	"home": {
 		"top_10": "Top 10 legtöbbet megvásárolt könyv",
 		"random_category": "Könyvek, melyek érdekesek lehetnek önnek",
-		"discounted": "Jelenleg leárazott könyvek",
+		"discounted": "Jelenleg kedvezményes könyvek",
 		"discounts": {
 			"genre": {
 				"title": "Ebben a műfajban minden könyv kedvezményes áron érhető el, nézze meg még ma!",
