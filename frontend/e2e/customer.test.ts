@@ -13,7 +13,7 @@ test.beforeEach(async ({ context }) => {
 		{
 			name: 'PARAGLIDE_LANGUAGE',
 			value: 'en',
-			domain: 'http://frontend.vm1.test',
+			domain: BASE_URL,
 			path: '/'
 		}
 	]);
