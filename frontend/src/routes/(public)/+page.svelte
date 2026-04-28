@@ -69,20 +69,25 @@
 			</Label>
 		</div>
 	{/if}
-	{#if data.topPurchased.length && data.randomCategory.length && data.discounted.length}
+	{#if data.topPurchased.length}
 		<section class="flex h-max w-full flex-col items-center gap-12 md:items-start">
 			<h1 class="text-3xl">{m['home.top_10']()}</h1>
 			<BookCarousel books={data.topPurchased} topList={true} discounts={data.discounts} />
 		</section>
+	{/if}
+	{#if data.randomCategory.length}
 		<section class="flex h-max w-full flex-col items-center gap-12 md:items-start">
 			<h1 class="text-3xl">{m['home.random_category']()}</h1>
 			<BookCarousel books={data.randomCategory} discounts={data.discounts} />
 		</section>
+	{/if}
+	{#if data.discounted.length}
 		<section class="flex h-max w-full flex-col items-center gap-12 md:items-start">
 			<h1 class="text-3xl">{m['home.discounted']()}</h1>
 			<BookCarousel books={data.discounted} discounts={data.discounts} />
 		</section>
-	{:else}
+	{/if}
+	{#if !data.topPurchased.length && !data.randomCategory.length && !data.discounted.length}
 		<h1 class="text-2xl">{m['home.no_data']()}</h1>
 	{/if}
 </div>
