@@ -379,7 +379,7 @@
 								}
 								return Math.round(price);
 							})()}
-							<div class="flex gap-4">
+							<div class="flex flex-col gap-4 md:flex-row">
 								{#if item.img_path}
 									<img
 										src="{PUBLIC_STORAGE_URL}/{item.img_path}"
@@ -400,9 +400,12 @@
 								<div class="flex flex-1 flex-col gap-2">
 									<p class="font-semibold">{item.title}</p>
 									<Price price={item.price} {discountedPrice} />
+									<div class="md:hidden">
+										<Price price={item.price} {discountedPrice} quantity={item.quantity} />
+									</div>
 									<CartQuantityControl book={item} />
 								</div>
-								<p class="text-sm font-semibold">
+								<p class="hidden text-sm font-semibold md:block">
 									<Price price={item.price} {discountedPrice} quantity={item.quantity} />
 								</p>
 							</div>
