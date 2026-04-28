@@ -19,7 +19,7 @@
 	import type { Coupon, CartItem } from '$lib/types';
 	import { getAllCartCoupons } from '$lib/stores/coupon.svelte.js';
 	import CartQuantityControl from '$lib/components/CartQuantityControl.svelte';
-	import { PUBLIC_LOCATION } from '$env/static/public';
+	import { PUBLIC_LOCATION, PUBLIC_STORAGE_URL } from '$env/static/public';
 
 	const { data } = $props();
 
@@ -382,7 +382,7 @@
 							<div class="flex gap-4">
 								{#if item.img_path}
 									<img
-										src={item.img_path}
+										src="{PUBLIC_STORAGE_URL}/{item.img_path}"
 										alt={m['accessibility.book_cover']()}
 										class="aspect-2/3 w-16 object-cover"
 									/>
