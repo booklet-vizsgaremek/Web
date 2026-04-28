@@ -36,6 +36,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('wishlists', WishlistController::class)->only(['index', 'store', 'destroy']);
 });
 
-Route::apiResource('coupons', CouponController::class)->only(['index', 'show']);;
+Route::apiResource('coupons', CouponController::class)->only(['index', 'show']);
 Route::post('/auth/login', [AuthController::class, 'authenticate']);
 Route::post('/auth/register', [UserController::class, 'store']);
