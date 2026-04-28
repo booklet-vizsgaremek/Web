@@ -68,6 +68,14 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Coupon::factory(4)->create();
+        Coupon::create([
+            'code' => 'COUPON10',
+            'user_id' => User::where('email', 'customer@customer.com')->first()->id,
+            'discount' => 10,
+            'starts_at' => now(),
+            'ends_at' => now()->addMonths(3),
+        ]);
+        
         Receipt::factory(15)->create();
     }
 }
