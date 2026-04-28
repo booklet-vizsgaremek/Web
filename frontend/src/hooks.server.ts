@@ -47,7 +47,7 @@ const handleAuth: Handle = async ({ event, resolve }) => {
 		(event.url.pathname.startsWith('/sign-in') || event.url.pathname.startsWith('/sign-up')) &&
 		user
 	) {
-		redirect(302, '/dashboard');
+		redirect(302, user.role === 'customer' ? '/' : '/dashboard');
 	}
 
 	return resolve(event);
