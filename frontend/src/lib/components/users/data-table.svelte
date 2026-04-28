@@ -117,8 +117,8 @@
 	});
 </script>
 
-<div class="w-full">
-	<h1 class="mb-6 text-2xl">{m['title.users']()}</h1>
+<div class="mx-auto flex w-full flex-col px-4 pt-16! pb-12 md:w-4/5 md:px-0 md:pb-24">
+	<h1 class="mb-6 text-3xl">{m['title.users']()}</h1>
 	<div class="mb-6 flex flex-col gap-2">
 		<div class="mb-2 flex flex-col gap-1">
 			<div class="relative flex-1 md:w-1/2">
