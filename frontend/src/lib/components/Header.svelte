@@ -12,6 +12,9 @@
 	import { cart } from '$lib/stores/cart.svelte';
 	import Badge from '$lib/components/ui/badge/badge.svelte';
 	import SignOut from '$lib/components/SignOut.svelte';
+	import { MoonIcon, SunIcon } from '@lucide/svelte';
+	import Button from './ui/button/button.svelte';
+	import { toggleMode } from 'mode-watcher';
 
 	let navOpen = $state(false);
 
@@ -57,7 +60,7 @@
 					return [
 						{
 							title: m['title.dashboard'](),
-							url: `/${user.role}`,
+							url: `/dashboard`,
 							isSpecial: false
 						}
 					];
@@ -150,6 +153,15 @@
 					>
 				</a>
 			{/if}
+
+			<Button
+				onclick={toggleMode}
+				variant="link"
+				class={`${linkClass(false)} cursor-pointer px-8!`}
+			>
+				<SunIcon class="scale-100 rotate-0 transition-all! dark:scale-0 dark:-rotate-90" />
+				<MoonIcon class="absolute scale-0 rotate-90 transition-all! dark:scale-100 dark:rotate-0" />
+			</Button>
 		</nav>
 	</header>
 {/if}
