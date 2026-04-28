@@ -29,11 +29,11 @@
 						<Carousel.Item>
 							{#if discount.book}
 								<a
-									class="flex h-full w-full flex-col gap-4 bg-blue-950 px-16 py-4 text-white"
+									class="flex h-full w-full flex-col items-center justify-center gap-4 bg-blue-950 px-16 py-4 text-white md:items-start"
 									href="/books/{discount.book.id}"
 								>
-									<h1 class="text-xl">{m['home.discounts.book.title']()}</h1>
-									<p class="text-sm">
+									<h1 class="text-lg md:text-xl">{m['home.discounts.book.title']()}</h1>
+									<p class="text-xs md:text-sm">
 										{m['home.discounts.book.description']({
 											title: discount.book.title,
 											discount: discount.discount
@@ -43,11 +43,11 @@
 							{/if}
 							{#if discount.genre}
 								<a
-									class="flex h-full w-full flex-col gap-4 bg-amber-300/75 px-16 py-4 text-black"
+									class="flex h-full w-full flex-col items-center justify-center gap-4 bg-amber-300/75 px-16 py-4 text-black md:items-start"
 									href="/books?genre={discount.genre.id}"
 								>
-									<h1 class="text-xl">{m['home.discounts.genre.title']()}</h1>
-									<p class="text-sm">
+									<h1 class="text-lg md:text-xl">{m['home.discounts.genre.title']()}</h1>
+									<p class="text-xs md:text-sm">
 										{m['home.discounts.genre.description']({
 											name_en: discount.genre.name_en,
 											name_hu: discount.genre.name_hu,
@@ -60,7 +60,6 @@
 					{/each}
 				</Carousel.Content>
 				<Carousel.Previous class="absolute top-1/2 left-2 z-10 -translate-y-1/2 rounded-none" />
-
 				<Carousel.Next class="absolute top-1/2 right-2 z-10 -translate-y-1/2 rounded-none" />
 			</Carousel.Root>
 			<Label class="mt-8 flex cursor-pointer items-center gap-2">
